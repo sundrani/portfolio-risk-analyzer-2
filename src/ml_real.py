@@ -7,6 +7,8 @@ from typing import Dict, Iterable, List, Tuple
 
 import numpy as np
 import pandas as pd
+import warnings
+warnings.filterwarnings("ignore", category=FutureWarning)
 
 try:
     from sklearn.ensemble import RandomForestClassifier
@@ -232,7 +234,7 @@ def train_risk_classifier(
     lr = Pipeline(
         steps=[
             ("scaler", StandardScaler()),
-            ("clf", LogisticRegression(max_iter=2000, multi_class="auto")),
+            ("clf", LogisticRegression(max_iter=2000)),
         ]
     )
 
@@ -247,6 +249,20 @@ def train_risk_classifier(
     y_pred = best.predict(X_test)
     rep = classification_report(y_test, y_pred)
     cm = confusion_matrix(y_test, y_pred, labels=["Conservative", "Moderate", "Aggressive"])
+    from src.explainability import save_feature_importance, save_shap_summary_plot
+
+    reports_dir = Path("reports")
+    reports_dir.mkdir(exist_ok=True)
+
+    # Feature importance only exists for tree models (RandomForest)
+    if hasattr(best, "feature_importances_"):
+        save_feature_importance(best, feature_names, str(reports_dir / "feature_importance.json"))
+
+    # SHAP summary: works for tree models; skip gracefully otherwise
+    try:
+        save_shap_summary_plot(best, X_test, feature_names, str(reports_dir / "shap_summary.png"))
+    except Exception as e:
+        print(f"SHAP generation skipped: {e}")
 
     out = Path(out_dir)
     out.mkdir(parents=True, exist_ok=True)

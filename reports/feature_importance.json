@@ -1,0 +1,30 @@
+[
+  {
+    "feature": "cvar_95",
+    "importance": 0.1779171365881012
+  },
+  {
+    "feature": "ann_vol",
+    "importance": 0.16430380964737945
+  },
+  {
+    "feature": "beta",
+    "importance": 0.15479617089968917
+  },
+  {
+    "feature": "var_95",
+    "importance": 0.14546413607064484
+  },
+  {
+    "feature": "max_drawdown",
+    "importance": 0.13507726586260738
+  },
+  {
+    "feature": "ann_return",
+    "importance": 0.11164661327711026
+  },
+  {
+    "feature": "sharpe",
+    "importance": 0.11079486765446757
+  }
+]

@@ -66,7 +66,7 @@ def score_from_metrics(m: RiskMetrics) -> RiskAssessment:
         },
         "notes": [
             "Risk score is heuristic and meant for demo/education.",
-            "Use a longer history window and appropriate benchmark for production.",
+
         ],
     }
 
