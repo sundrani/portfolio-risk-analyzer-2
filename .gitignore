@@ -11,3 +11,7 @@ build/
 # model artifacts
 models/
 *.joblib
+
+# model artifacts
+models/
+*.joblib
